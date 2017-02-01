@@ -13,6 +13,12 @@ public class Doodad {
         BufferedImage image = ImageIO.read(file);
         JLabel label = new JLabel(new ImageIcon(image));
         JFrame f = new JFrame();
+	
+	//Implements Draglistener so image can be moved without title bar	
+	DragListener drag = new DragListener();
+        f.addMouseListener( drag );
+        f.addMouseMotionListener( drag );	
+		
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.getContentPane().add(label);
         f.pack();
