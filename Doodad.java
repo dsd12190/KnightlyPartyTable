@@ -18,7 +18,7 @@ public class Doodad {
 	DragListener drag = new DragListener();
         f.addMouseListener( drag );
         f.addMouseMotionListener( drag );	
-		
+	f.setUndecorated(true);	
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.getContentPane().add(label);
         f.pack();
