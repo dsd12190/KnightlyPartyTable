@@ -1,55 +1,111 @@
+import java.awt.event.*;
+import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.util.Scanner; 
 
 public class Doodad {	
-	private static Scanner scanner;
-   
-	public void showDoodad() throws IOException {
-        File file = new File(getName());
-        BufferedImage image = ImageIO.read(file);
-        JLabel label = new JLabel(new ImageIcon(image));
-        JFrame f = new JFrame();
+	private int height, width, xAxis, yAxis;
+	private BufferedImage image;
+//	private Enum visible;
 	
-	//Implements Draglistener so image can be moved without title bar	
-	DragListener drag = new DragListener();
-        f.addMouseListener( drag );
-        f.addMouseMotionListener( drag );	
-	f.setUndecorated(true);	
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//	private enum Visibility{
+//		PLAYER_1, PLAYER_2, PLAYER_3
+//	}
+	
+	//Get the image
+	
+	
+	
+	
+	public Doodad(int xAxis, int yAxis, String name) throws IOException {
+		
+		//Gets the image 
+		File file = new File(name);
+		//displays image?
+		image = ImageIO.read(file);
+		//width and height are set from the picture imported
+		width = image.getWidth();
+		height = image.getHeight();
+
+		this.xAxis = xAxis;
+		this.yAxis = yAxis;
+//		this.visible = visible;
+	}
+	
+	//DragListener makes movement happen
+	public void drag(){
+		
+		//Create the icon and the frame
+		JLabel label = new JLabel(new ImageIcon(image));
+		JFrame f = new JFrame();
+		
+		//create the draglistener
+		DragListener drag = new DragListener();
+        f.addMouseListener(drag);
+        f.addMouseMotionListener(drag);	
+        
+        // Give the window an elliptical shape.
+        f.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                f.setShape(new Ellipse2D.Double(0,0,getWidth(),getHeight()));
+            }
+        });
+
+        //sets up picture
+        f.setUndecorated(true);
+        f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         f.getContentPane().add(label);
         f.pack();
-        f.setLocation(getAxis(),getAxis()); 
-        f.setVisible(true); 
-    }
-    
-    private static String getName()
-    {
-    	String picture ="";
-    	scanner = new Scanner(System.in);
-    	System.out.print("Enter Animal Number 1 = Monkey, 2 = Elephant, 3 = Parrot:");
-    	int animal = scanner.nextInt();
-    	switch (animal)
-    	{
-    	case 1:
-    	picture = "monkey.jpg";
-    	break;
-    	case 2:
-        picture = "elephant.jpg";
-        break;
-    	case 3:
-        picture = "parrot.jpg";
-    	}
-    	return picture;
-    }
-    
-    private static int getAxis()
-    {
-    	System.out.print("Enter doodad axis:");
-    	int axis = scanner.nextInt();
-    	return axis;
-    }
+        f.setLocation(getxAxis(),getyAxis()); 
+        f.setVisible(true);
+	}
+	
+	//getters and setters
+	public int getHeight() {
+		return height;
+	}
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getxAxis() {
+		return xAxis;
+	}
+	public void setxAxis(int xAxis) {
+		this.xAxis = xAxis;
+	}
+
+	public int getyAxis() {
+		return yAxis;
+	}
+	public void setyAxis(int yAxis) {
+		this.yAxis = yAxis;
+	}
+
+	public BufferedImage getImage() {
+		return image;
+	}
+	public void setImage(BufferedImage image) {
+		this.image = image;
+	}
+
+	/*
+	public Enum getVisible(){
+		return visible;
+	}
+	public void setVisible(){
+		this.visible = visible;
+	}
+	 */
 }
