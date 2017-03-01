@@ -18,6 +18,8 @@ public class checkers {
 		Doodad doodad4[] = new Doodad[4];
 		Doodad doodad5[] = new Doodad[4];
 		Doodad doodad6[] = new Doodad[4];
+		Doodad doodad7[] = new Doodad[12];
+		Doodad doodad8[] = new Doodad[12];
 		
 		doodadCol.add(doodad1);
 		doodadCol.add(doodad2);
@@ -30,6 +32,7 @@ public class checkers {
 		shareGameBoard(board);
 		showReds(doodad1,doodad2,doodad3);
 		showBlacks(doodad4,doodad5,doodad6);
+		kings(doodad7,doodad8);
 
 	}
 	
@@ -151,6 +154,38 @@ public class checkers {
 		}
 		
 	}
-	//kinging -  background stuff, then menu support?
 	
+	//kinging
+	public static void kings(Doodad doodad7[], Doodad doodad8[]) throws IOException{
+		//black king stack
+		int xBlack = 149;
+		int y = 120;
+		int xRed = 1139;
+		int num = 0;
+		String blackKing = "BlackKing.png";
+		String redKing = "RedKing.png";
+		
+		
+		try{
+			while(num < doodad7.length){
+				doodad7[num] = new Doodad(xBlack, y, blackKing);
+				num++;
+			}
+			num  = 0;
+			while(num < doodad8.length){
+				doodad8[num] = new Doodad(xRed, y, redKing);
+				num++;
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		for(int i = 0; i < doodad7.length; i++){
+			doodad7[i].drag();
+		}
+		
+		for(int i = 0; i < doodad8.length; i++){
+			doodad8[i].drag();
+		}
+	}	
 }
