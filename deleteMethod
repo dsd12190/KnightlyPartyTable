@@ -1,0 +1,30 @@
+public static void deleteCorner(JFrame chekkers) throws IOException{
+		
+	
+			String deleteIcon = "blackhole.png";	
+			int x = 1100, y = 500;
+			
+			//find coordinates of label
+			for (int i = 0; i < chekkers.getComponentCount(); i++){
+				if(chekkers.getComponent(i).getX()>=x && chekkers.getComponent(i).getY()>=y){
+					
+					//delete label
+					chekkers.remove(chekkers.getComponent(i));
+					chekkers.revalidate();
+					chekkers.repaint();
+					
+				}
+			//create label with picture to indicate delete area
+			JLabel deletePanel = new JLabel();
+			DoodadTryhard dth = new DoodadTryhard(x,y,deleteIcon);
+		
+			deletePanel = dthToJLabel(dth);
+			Dimension size= deletePanel.getPreferredSize();
+			deletePanel.setBounds(x, y, size.width, size.height);
+			
+			chekkers.add(deletePanel);	
+			
+			
+			}
+		
+	}
