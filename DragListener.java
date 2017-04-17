@@ -1,9 +1,11 @@
+package cleanedUpGames;
+
 import java.awt.Component;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import javax.swing.event.MouseInputAdapter;
 
-public class DragListener extends MouseInputAdapter
+public class DragListenerTryhard extends MouseInputAdapter
 {
     Point location;
     MouseEvent pressed;
@@ -20,5 +22,9 @@ public class DragListener extends MouseInputAdapter
         int x = location.x - pressed.getX() + me.getX();
         int y = location.y - pressed.getY() + me.getY();
         component.setLocation(x, y);
+        
+       if(x >= 1100 && y >= 500){
+        	chekkersTryhard.chekkers.remove(component);
+        } 
      }
 }
