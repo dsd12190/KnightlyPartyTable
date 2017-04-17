@@ -11,10 +11,10 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class chekkersTryhard {
-
+	public static JFrame chekkers = new JFrame();
 	public static void main(String[] args) throws IOException {
 		//create frame
-		JFrame chekkers = new JFrame();
+		
 		
 		
 		//create ArrayList for saving?
@@ -24,10 +24,10 @@ public class chekkersTryhard {
 		chekkers.setLayout(null);
 		chekkers.setContentPane(insertBackground(chekkers));
 		
-		
 		//populate the JFrame with chekkerBits
 		printRedPieces(chekkers);
 		printBlackPieces(chekkers);
+		deletePicture(chekkers);
 	
 		//display stuff		
 		chekkers.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -138,5 +138,23 @@ public class chekkersTryhard {
 		
 		return jl;
 	}
+	
+public static void deletePicture(JFrame chekkers) throws IOException{
+		
+	
+			String deleteIcon = "blackhole.png";	
+			int x = 1100, y = 500;
+			
+			//create label with picture to indicate delete area
+			JLabel deletePanel = new JLabel();
+			DoodadTryhard dth = new DoodadTryhard(x,y,deleteIcon);
+		
+			deletePanel = dthToJLabel(dth);
+			Dimension size= deletePanel.getPreferredSize();
+			deletePanel.setBounds(x, y, size.width, size.height);
+			
+			chekkers.add(deletePanel);	
+		
+	} 
 	
 }
