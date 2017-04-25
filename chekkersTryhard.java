@@ -1,11 +1,16 @@
 package cleanedUpGames;
 
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 //import java.util.ArrayList;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -18,16 +23,20 @@ public class chekkersTryhard {
 		
 		
 		//create ArrayList for saving?
-		//ArrayList<JLabel> chekkerBits = new ArrayList<JLabel>();
+		ArrayList<JLabel> chekkerBits = new ArrayList<JLabel>();
+		
 		
 		//populate frame background with gameboard pic
 		chekkers.setLayout(null);
 		chekkers.setContentPane(insertBackground(chekkers));
-		
+		savebutton(chekkers,GameIO.array);
 		//populate the JFrame with chekkerBits
-		printRedPieces(chekkers);
-		printBlackPieces(chekkers);
+		
+		//printRedPieces(chekkers);
+		//printBlackPieces(chekkers);
+		printDoodads();
 		deletePicture(chekkers);
+		
 	
 		//display stuff		
 		chekkers.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -52,6 +61,32 @@ public class chekkersTryhard {
 
 	public static Dimension getScreenDimension(){
 		return Toolkit.getDefaultToolkit().getScreenSize();
+	}
+	
+	public static void printDoodads() throws IOException{
+		JLabel jl = new JLabel();
+	
+		int count = 0;//for testing
+		GameIO.loadIO("test");
+		System.out.print(GameIO.array.size());
+		
+		for (int i=0;i<GameIO.array.size(); i++){
+			
+			DoodadTryhard dd = GameIO.array.get(i);
+			jl = dthToJLabel(dd);
+			addDragListener(jl);
+			
+			Dimension size= jl.getPreferredSize();
+			jl.setBounds(dd.getxAxis(), dd.getyAxis(), size.width, size.height);
+			
+			//Add the JLabel
+			chekkers.add(jl);
+			System.out.println(count);
+			//count++;//for testing
+			
+		}
+		
+		
 	}
 	
 	public static void printRedPieces(JFrame chekkers) throws IOException{
@@ -156,5 +191,25 @@ public static void deletePicture(JFrame chekkers) throws IOException{
 			chekkers.add(deletePanel);	
 		
 	} 
+public static void savebutton(JFrame jf, ArrayList<DoodadTryhard>array)
+{
+	 class ClickListener implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e) {
+			try {
+				GameIO.saveIO(array);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+		}
+	}
+	JButton save = new JButton("Save");
+	ActionListener listener = new ClickListener();
+	save.addActionListener(listener);
+	save.setBounds(5, 5, 90, 90);
+	jf.add(save);
+}
 	
 }
