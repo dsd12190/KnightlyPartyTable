@@ -19,7 +19,15 @@ public class GameListener extends MouseInputAdapter {
     			} catch (IOException e1){
     				e1.printStackTrace();
     				}
-        	
+        }
+        if(me.getSource() == Game.quit){
+        	GameIO.loadArray.clear();
+        	GameIO.saveArray.clear();
+			Game.gameWindow.dispose();
+        }
+     
+        if(me.getSource() == Game.add){
+        	InGameMenu ingamemenu = new InGameMenu();
         }
     }
  

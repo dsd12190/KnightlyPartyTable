@@ -28,7 +28,6 @@ public class Menu extends MenuListener{
 	   
 		chekkers.addActionListener(listener);
 	    shaddlebips.addActionListener(listener);
-	    stratego.addActionListener(listener);
 	    load.addActionListener(listener);
 	    back.addActionListener(listener);
 	    panel.add(chekkers);

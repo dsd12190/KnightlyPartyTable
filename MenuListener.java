@@ -46,7 +46,6 @@ public class MenuListener implements ActionListener {
 	{
 		LoadGUI loadgui = new LoadGUI();
 		
-		
 	}
 	else
 	{

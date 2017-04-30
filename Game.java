@@ -13,8 +13,11 @@ import javax.swing.*;
 public class Game {
 	//create frame
 	public static JFrame gameWindow = new JFrame();
-	public static JButton save = new JButton("Save");
 	public static JButton quit = new JButton("Quit");
+	public static JButton save = new JButton("Save");
+	public static JButton add = new JButton("Add");
+	public static JButton menu = new JButton("Menu");
+	
 	
 	public static void main(String gameFile) throws IOException {
 		//Sends name of file to be loaded
@@ -22,10 +25,12 @@ public class Game {
 		//GameIO.loadIO("test");
 		
 		//Add background,buttons, pieces, and other images to frame
-		gameWindow.setLayout(null);
 		gameWindow.setContentPane(insertBackground());
-		quitbutton();
+		gameWindow.setLayout(null);
 		savebutton();
+		quitbutton();
+		addbutton();
+		menubutton();
 		deletePicture();
 		printDoodads();
 		
@@ -75,6 +80,20 @@ public class Game {
 		return Toolkit.getDefaultToolkit().getScreenSize();
 	}
 	
+	public static void addDoodad(String imageFile) throws IOException{
+		JLabel jl = new JLabel();
+		Doodad dd = new Doodad(300,300,imageFile);
+		jl =ddToJLabel(dd);
+		addGameListener(jl);
+		Dimension size= jl.getPreferredSize();
+		jl.setBounds(dd.getxAxis(), dd.getyAxis(), size.width, size.height);
+		
+		//Add JLabel and and file path name to an array for saving game
+		GameIO.saveArray.add(new SaveObject(jl, dd.getName()));
+		//Add JLabel to frame
+		gameWindow.add(jl);
+		gameWindow.repaint();
+	}
 	public static void printDoodads() throws IOException{
 		JLabel jl = new JLabel();
 		
@@ -103,9 +122,24 @@ public class Game {
 		
 		return jl;
 	}
+	public static void addbutton(){
+		GameListener listener = new GameListener();
+	
+		add.addMouseListener(listener);
+		add.setBounds(5, 115, 90, 50);
+		
+		gameWindow.add(add);
+	}
+	public static void quitbutton(){
+		GameListener listener = new GameListener();
+	
+		quit.addMouseListener(listener);
+		quit.setBounds(5, 60, 90, 50);
+		
+		gameWindow.add(quit);
+	}
 	
 	public static void savebutton(){
-		//JButton save = new JButton("Save");
 		GameListener listener = new GameListener();
 	
 		save.addMouseListener(listener);
@@ -113,12 +147,14 @@ public class Game {
 		
 		gameWindow.add(save);
 	}
-	public static void quitbutton(){
+	
+	public static void menubutton(){
 		GameListener listener = new GameListener();
 	
-		save.addMouseListener(listener);
-		save.setBounds(5, 60, 90, 50);
+		menu.addMouseListener(listener);
+		menu.setBounds(5, 170, 90, 50);
 		
-		gameWindow.add(quit);
+		gameWindow.add(menu);
 	}
+	
 }
